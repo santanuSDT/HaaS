@@ -17,7 +17,7 @@ class CreateHorosceTable extends Migration
             $table->id();
             $table->string('year');
             $table->string('lucky_zodiac');
-            $table->longText('monthly_total');
+            $table->longText('lucky_month_list');
             $table->longText('horoscope_details');
             $table->timestamps();
         });

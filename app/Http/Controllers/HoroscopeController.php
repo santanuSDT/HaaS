@@ -70,13 +70,13 @@ class HoroscopeController extends Controller {
         //dd($best_month);
         $new_horoscope->year = $year;
         $new_horoscope->lucky_zodiac = $max_zodiac;
-        $new_horoscope->monthly_total  = json_encode($best_month);
+        $new_horoscope->lucky_month_list  = json_encode($best_month);
         $new_horoscope->horoscope_details = json_encode($horoscope);
         $new_horoscope->save();
         
         $data['horoscope_data']  = Horoscope::where('year',$year)->first();
         $data['lucky_zodiac'] = $data['horoscope_data']->lucky_zodiac;
-        $data['best_month'] = json_decode($data['horoscope_data']->monthly_total);
+        $data['best_month'] = json_decode($data['horoscope_data']->lucky_month_list);
 
         //dd($data['monthly_total']);
         $data['year'] = $year;

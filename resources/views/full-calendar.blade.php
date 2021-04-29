@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="public/assets/css/cal_style.css" />
     <link rel="stylesheet" href="public/assets/css/yearview.css" />
     {{-- for year picker --}}
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    <link href="{{ url('/public') }}/assets/css/year_picker/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('/public') }}/assets/css/year_picker/bootstrap-datepicker.css" rel="stylesheet">
+    <script src="{{ url('/public') }}/assets/js/jquery.js"></script>
+    <script src="{{ url('/public') }}/assets/js/year_picker/bootstrap.min.js"></script>
+    <script src="{{ url('/public') }}/assets/js/year_picker/bootstrap-datepicker.js"></script>
     
-
+    {{-- For button group --}}
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css">
     <script type='text/javascript' src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
@@ -118,12 +118,7 @@ $(document).ready(function() {
                 durationEditable: true,
                 bootstrap: false,     
                     
-
-                
-
                 dayRender: function (date, cell) {
-                    
-                //end of indicating best month
                 var strDay = moment(date._d).format('YYYY-MM-DD');
                 for(i=0 ; i<= horos_dates.length; i++){                    
                     if(strDay == horos_dates[i]){
