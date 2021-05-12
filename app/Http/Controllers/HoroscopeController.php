@@ -8,14 +8,12 @@ use Config;
 use App\Models\Horoscope;
 
 class HoroscopeController extends Controller {
-
     public function generate(Request $request){
         $data['zodiac_list'] = Config::get('common.zodiac'); 
         $year = $request->year;
         //check the existence of the selected year horoscope
         $find_this_year = Horoscope::where('year',$year)->first();
 
-        //dd($zodiac_list);
         foreach($data['zodiac_list'] as $key => $value){
             $yearly_score = 0;
             for ($i = 1; $i <= 12; $i++){
@@ -41,33 +39,24 @@ class HoroscopeController extends Controller {
                     $month_total_score = $month_total_score + $horoscope[$key][$j->format("Y-m-d")]['score'];
                     $day_count++;
                 }
-                
                 $monthly_average = $month_total_score / $day_count;
                 $monthly_score[$key][$i]['average_in_month'] = $monthly_average;
                 $yearly_score = $yearly_score + $month_total_score;
-                
-                
             }
-            
             $yearly_total_score[$key] = $yearly_score;
         }
         //best zodiac of the year calculation
         $max_zodiac = array_search(max($yearly_total_score),$yearly_total_score);
-
         //best month of a zodiac
         foreach($monthly_score as $zod => $score){
             $best_month[$zod] = array_search(max($score),$score);    
         }
-    
-        
-
         if($find_this_year){
             $new_horoscope = $find_this_year;
         }
         else{
             $new_horoscope = new Horoscope;
         }
-        //dd($best_month);
         $new_horoscope->year = $year;
         $new_horoscope->lucky_zodiac = $max_zodiac;
         $new_horoscope->lucky_month_list  = json_encode($best_month);
@@ -77,19 +66,10 @@ class HoroscopeController extends Controller {
         $data['horoscope_data']  = Horoscope::where('year',$year)->first();
         $data['lucky_zodiac'] = $data['horoscope_data']->lucky_zodiac;
         $data['best_month'] = json_decode($data['horoscope_data']->lucky_month_list);
-
-        //dd($data['monthly_total']);
         $data['year'] = $year;
-        // $data['horoscope_details'] = json_decode($data['horoscope_data']->horoscope_details,true);
         $data['horoscope_details'] = $data['horoscope_data']->horoscope_details;
-        //dd($data['horoscope_details']);
-
         $data['decoded'] = json_decode($data['horoscope_details'],true);
         $data['month'] = Config::get('common.months');
-        
-       
-        // dd($data['decoded']);
-        return view('full-calendar',['data'=>$data]);   
-                
+        return view('full-calendar',['data'=>$data]);       
     }
 }

@@ -96,7 +96,6 @@ $(document).ready(function() {
             const horos_dates = Object.keys(details_in_array);
             const horos_scores = Object.values(details_in_array);
 
-            
             $('#calendar').fullCalendar('destroy'); 
             $('#calendar').fullCalendar({
                 // put your options and callbacks here
@@ -104,10 +103,7 @@ $(document).ready(function() {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'year,month,basicWeek,basicDay',
-
-
                 },
-                
                 timezone: 'local',
                 height: "auto",
                 selectable: true,
@@ -122,7 +118,6 @@ $(document).ready(function() {
                 var strDay = moment(date._d).format('YYYY-MM-DD');
                 for(i=0 ; i<= horos_dates.length; i++){                    
                     if(strDay == horos_dates[i]){
-                        //console.log(horos_scores[i].score);
                         switch (horos_scores[i].score) {
                         case 1:
                             cell.css("background", "#FF0000");
@@ -162,10 +157,7 @@ $(document).ready(function() {
                 },
                 eventAfterAllRender: function(view) {
                     var month_list = <?php echo json_encode($data['month']); ?>;
-                    //console.log(current_best_month);
-                    if ($('.label').length == 0) {
-                        //$('.fc-center').after(content: " (" attr(month_list) ")";
-                       
+                    if ($('.label').length == 0) {                       
                         $('.fc-center').after('<div class="label success" style="font-color: red;">Your Best month:'+  month_list[current_best_month] + '</div>');
                     }
                 },
